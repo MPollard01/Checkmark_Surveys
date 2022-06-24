@@ -48,7 +48,10 @@ class SurveyController extends BaseController
         if (Request::getMethod() === 'post') {
             $emailForm->loadData(Request::getJson());
             if($emailForm->validate() && $emailForm->send()) {
-                echo var_dump($emailForm);
+                $emailForm->save();
+                echo json_encode($emailForm);
+            } else {
+                echo json_encode(array('error' => 'Failed to send'));
             }
             
         }
@@ -76,8 +79,13 @@ class SurveyController extends BaseController
 
     public function response($id)
     {
-        $survey['survey'] = Survey::getSingle($id['id']);
-        $this->useView('respond', $survey)->render();
+        if(EmailForm::get($id['token']) != null) {
+            $survey['survey'] = Survey::getSingle($id['id']);
+            $this->useView('respond', $survey)->render();
+            EmailForm::delete($id['token']);
+        } else {
+            Redirect::to('/redirect');
+        }
     }
 
     public function sendResponse()
@@ -85,9 +93,8 @@ class SurveyController extends BaseController
         $response = new Response();
         if (Request::getMethod() === 'post') {
             $response->loadData(Request::getJson());
-            echo var_dump($response->answers[0]);
             if($response->save()) {
-                echo var_dump($response);
+                echo "success";
             } else {
                 echo "failed";
             }

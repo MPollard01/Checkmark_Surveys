@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 use PHPMailer\PHPMailer;
+use App\Classes\Session;
 
 class Mail
 {
@@ -24,7 +25,7 @@ class Mail
 
         $environment = $_ENV['APP_ENV'];
 
-        if($environment === 'local') $this->mail->SMTPDebug = 2;
+        //if($environment === 'local') $this->mail->SMTPDebug = 2;
 
         $this->mail->Username = $_ENV['EMAIL_USERNAME'];
         $this->mail->Password = $_ENV['EMAIL_PASSWORD'];
@@ -32,19 +33,28 @@ class Mail
         $this->mail->isHTML(true);
         //$this->mail->SingleTo = true;
 
-        $this->mail->From = $_ENV['EMAIL_USERNAME'];
-        $this->mail->FromName = $_ENV['APP_NAME'];
+        // $this->mail->From = $_ENV['EMAIL_USERNAME'];
+        // $this->mail->FromName = $_ENV['APP_NAME'];
+
+        $this->mail->SetFrom(Session::get('email'), Session::get('username'));
+        $this->mail->isHTML(true);
     }
 
-    public function send($data)
+    public function send()
     {
-        $this->mail->addAddress($data['to'], $data['name']);
-        $this->mail->Subject = $data['subject'];
-        $this->mail->Body = '';
+        return $this->mail->send();
     }
 
     public function getMail()
     {
         return $this->mail;
+    }
+
+    public function setSubject($subject) {
+        $this->mail->Subject = $subject;
+    }
+
+    public function setBody($body) {
+        $this->mail->Body = $body;
     }
 }

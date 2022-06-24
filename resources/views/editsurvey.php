@@ -115,11 +115,20 @@
 </form>
 
 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
   <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    
     <div class="toast-body bg-success text-light">
       Saved successfully
+    </div>
+  </div>
+  <div id="emailToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body bg-success text-light">
+      Email Sent
+    </div>
+  </div>
+  <div id="emailToast-err" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body bg-danger text-light">
+      Failed to send
     </div>
   </div>
 </div>

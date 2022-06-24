@@ -1,6 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../../../resources/assets/js/response.js"></script>
+<script src="<?php echo $_ENV['APP_URL'] ?>/resources/assets/js/response.js"></script>
 
 <div class="container mt-5">
     <form id="survey-form" class="form-control shadow border-0 row g-3 mx-auto py-4" style="width: 70%" action="" method="post">
@@ -47,4 +47,20 @@
             <button class="btn btn-success" id="respond-btn" type="button">Send</button>
         </div>
     </form>
+
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body bg-success text-light">
+            Sent successfully
+            </div>
+        </div>
+        <div id="warningToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body bg-primary text-light">
+            Please answer all questions
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

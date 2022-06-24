@@ -10,7 +10,7 @@ class Database
 
     private final function  __construct() {
         $this->dbConn = mysqli_connect($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_NAME']);
-        if (!$this->dbConn)
+        if ($this->dbConn->connect_errno)
 	    {
 		    die("Connection failed: " . mysqli_connect_error());
 	    }	
@@ -36,6 +36,7 @@ class Database
     public function query($sql)
     {
         $query = mysqli_query($this->dbConn, $sql);
+       
         if (!$query) 
 		{
 			die(mysqli_error($this->dbConn));
@@ -82,9 +83,9 @@ class Database
     {
         $query = $this->query("SELECT * FROM $table WHERE $field='$search'");
         $rows = $this->rows($query);
-        $this->closeConn();
+        //$this->closeConn();
         if($rows > 0) return mysqli_fetch_assoc($query);
-
+        $this->closeConn();
         return null;
     }
 

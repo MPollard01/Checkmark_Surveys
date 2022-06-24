@@ -13,11 +13,12 @@ $router->map('GET', '/surveys', 'App\Controllers\SurveyController@index', 'surve
 $router->map('GET', '/createsurvey', 'App\Controllers\SurveyController@showSurveyForm', 'surveyForm');
 $router->map('POST', '/sendsurvey', 'App\Controllers\SurveyController@sendSurvey', 'survey');
 $router->map('GET', '/surveys/edit/[a:id]', 'App\Controllers\SurveyController@edit', 'edit');
-$router->map('GET', '/surveys/respond/[a:id]', 'App\Controllers\SurveyController@response', 'respond');
+$router->map('GET', '/surveys/respond/[a:id]/[a:token]', 'App\Controllers\SurveyController@response', 'respond');
 $router->map('POST', '/edit/[a:id]', 'App\Controllers\SurveyController@editSurvey', 'editSurvey');
 $router->map('POST', '/surveys/email', 'App\Controllers\SurveyController@sendEmail', 'email');
 $router->map('POST', '/surveys/send/response', 'App\Controllers\SurveyController@sendResponse', 'response');
 $router->map('GET', '/surveys/responses/[a:id]', 'App\Controllers\SurveyController@getResponse', 'getResponse');
 $router->map('GET', '/surveys/get/responses/[a:id]', 'App\Controllers\SurveyController@getJsonResponse', 'getJsonResponse');
 $router->map('DELETE', '/surveys/delete/[a:id]', 'App\Controllers\SurveyController@deleteSurvey', 'delete');
+$router->map('GET', '/redirect', 'App\Controllers\IndexController@redirect', 'redirect');
 

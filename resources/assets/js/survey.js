@@ -150,23 +150,33 @@ $(document).ready(function () {
 
     const formData = document.querySelector("#email-form");
     const data = Object.fromEntries(new FormData(formData));
-    console.log(data);
 
     const id = window.location.href.split("/").pop();
-
-    data.body += `<br><br>Click the link to take fill in the survey <a href="http://localhost/checkmarksurveys/public/surveys/respond/${id}">Take Survey</a>`;
+    data.id = `${id}/`;
+    //data.body += `<br><br>Click the link to take the survey <a href="http://localhost/checkmarksurveys/public/surveys/respond/${id}">Take Survey</a>`;
     data.recipients = data.recipients.split(" ");
+
+    const toastEl = document.querySelector("#emailToast");
+    const toast = new bootstrap.Toast(toastEl);
+    const toastErr = document.querySelector("#emailToast-err");
+    const emailErr = new bootstrap.Toast(toastErr);
 
     $.ajax({
       url: "http://localhost/checkmarksurveys/public/surveys/email",
       type: "POST",
       data: { data: JSON.stringify(data) },
       success: function (res) {
-        console.log(res);
-        $("#emailModal").modal("hide");
-      },
-      error: function () {
-        console.log("failed");
+        const result = JSON.parse(res);
+        try {
+          if (result.error) {
+            throw new Error(result.error);
+          }
+          toast.show();
+        } catch (err) {
+          emailErr.show();
+        } finally {
+          $("#emailModal").modal("hide");
+        }
       },
     });
   });

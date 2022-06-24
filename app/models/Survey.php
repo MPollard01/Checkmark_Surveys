@@ -54,7 +54,6 @@ class Survey extends Model
     public function update()
     {
         $this->questions = json_encode($this->questions);
-        echo var_dump($this);
         return self::$db->query("UPDATE survey SET title='{$this->title}', questions='{$this->questions}' WHERE id = '{$this->id}'");
     }
 

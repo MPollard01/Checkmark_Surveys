@@ -30,6 +30,7 @@ class LoginForm extends Model
         }
 
         Session::add('username', $this->username);
+        Session::add('email', $user->email);
 
         return true;
     }

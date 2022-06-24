@@ -43,7 +43,7 @@ class AuthController extends BaseController
         if (Request::getMethod() === 'post') {
             $loginForm->loadData(Request::getBody());
             if ($loginForm->validate() && $loginForm->login()) {
-                Redirect::to("/");
+                Redirect::to("/surveys");
                 return;
             }
         }
@@ -53,6 +53,7 @@ class AuthController extends BaseController
     public function logout()
     {
         Session::remove('username');
+        Session::remove('email');
         Redirect::to("/");
     }
 }

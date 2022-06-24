@@ -10,7 +10,11 @@ class IndexController extends BaseController
 
     public function index()
     {
-        $data['data'] = 'hello world';
-        $this->useView('home', $data)->render();
+        $this->useView('home')->render();
+    }
+
+    public function redirect()
+    {
+        $this->useView('response-redirect')->render();
     }
 }
